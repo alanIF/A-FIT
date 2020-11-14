@@ -12,7 +12,49 @@
  * @author PICHAU
  */
 class UsuarioDAO {
-    
+
+  function listar(){
+        require_once 'connect.php';
+        $conn = F_conect();
+        $result = mysqli_query($conn, "Select * from usuario");
+        $i = 0;
+        $usuarios= array();
+        if (mysqli_num_rows($result)) {
+            while ($row = $result->fetch_assoc()) {
+                   $usuarios[$i]['id'] = $row['id'];
+                   $usuarios[$i]['nome'] = $row['nome'];
+                   $usuarios[$i]['email'] = $row['email'];
+                   $usuarios[$i]['tipo'] = $row['tipo'];
+                   $usuarios[$i]['senha'] = $row['senha'];
+                
+                 
+                    $i++;
+                }
+        }
+       $conn->close();
+       return $usuarios;
+}
+function getUsuario($id){
+        require_once 'connect.php';
+        $conn = F_conect();
+        $result = mysqli_query($conn, "Select * from usuario where id='".$id."'");
+        $i = 0;
+        $usuarios= array();
+        if (mysqli_num_rows($result)) {
+            while ($row = $result->fetch_assoc()) {
+                   $usuarios[$i]['id'] = $row['id'];
+                   $usuarios[$i]['nome'] = $row['nome'];
+                   $usuarios[$i]['email'] = $row['email'];
+                   $usuarios[$i]['tipo'] = $row['tipo'];
+                   $usuarios[$i]['senha'] = $row['senha'];
+                
+                 
+                    $i++;
+                }
+        }
+       $conn->close();
+       return $usuarios;
+}
 function logar($email, $senha) {
     require_once 'Model/connect.php';   
 
@@ -80,48 +122,58 @@ function testLogado() {
         header('Location: ../index.php');
     }
 }
+function is_admin($tipo) {
+    if(strcmp ( "1" , $tipo )==0) {
+        return true; 
+    }
+    return false;
+}
 
-function cadastrar($nome, $email, $senha) {
-    require_once 'Model/connect.php';   
+function cadastrar($nome, $email, $senha,$tipo) {
+   require_once 'connect.php';
 
     $conn = F_conect();
-    $sql = "INSERT INTO usuario(nome, email, senha)
-            VALUES('" . $nome . "','" . $email . "','" . $senha . "' )";
+    $sql = "INSERT INTO usuario(nome, email, senha, tipo)
+            VALUES('" . $nome . "','" . $email . "','" . $senha . "' , '".$tipo."')";
     if ($conn->query($sql) == TRUE) {
-        Alert("Oba!", "Usuário cadastrado com sucesso", "success");
+       return "Usuario cadastrado com sucesso";
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        return "Error: " . $sql . "<br>" . $conn->error;
     }
 
     $conn->close();
 }
 
-function editarUsu($nome, $email, $senha, $id) {
+function atualizarUsuario($nome, $email, $senha,$tipo, $id) {
+     require_once 'connect.php';
+
     $conn = F_conect();
     $sql = " UPDATE usuario SET  nome='" . $nome . "', email='" . $email . " ', senha='" .
-            $senha . "' WHERE id= " . $id;
+            $senha . "' , tipo='".$tipo."' WHERE id= " . $id;
 
     if ($conn->query($sql) === TRUE) {
-        Alert("Oba!", "Dados atualizados com sucesso", "success");
-        $_SESSION['usuario'] = $email;
-        $_SESSION['idUSU'] = $id;
-        $_SESSION['ativo'] = true;
-        
-        echo "<a href='home.php'> Voltar a tela de login</a>";
+       
+       return "Usuario atualizado com sucesso";
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+       return "Error: " . $sql . "<br>" . $conn->error;
     }
     $conn->close();
 }
 
 function excluirUsu($id) {
+   require_once 'connect.php';
 
     $conn = F_conect();
 
     $sql = "DELETE FROM usuario WHERE id=" . $id;
+    if ($conn->query($sql)) {
+                return "Usuario excluído com sucesso";
 
-    $conn->query($sql);
+            }else{
+                return "Error: " . $sql . "<br>" . $conn->error;
 
-    $conn->close();
+            }
+
+            $conn->close();
 }
 }

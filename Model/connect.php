@@ -4,7 +4,7 @@
 
     function F_conect(){
         $servidor = "localhost";    
-        $nomebanco = "sig_candidatos" ;
+        $nomebanco = "sig_fit" ;
         $usuario = "root";
         $senha = "";
 

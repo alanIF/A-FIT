@@ -19,19 +19,39 @@ class UsuarioController {
        $usuario  = new UsuarioDAO();
        $usuario->logar($email, $senha);
     }
-    
-    public function Cadastrar($nome,$email,$senha){
-        require_once ('./Model/UsuarioDAO.php');
+    public function listar(){
+        require_once '../Model/UsuarioDAO.php';
+        $usuarios = new UsuarioDAO();
+        return $usuarios->listar();
+    }
+     public function getUsuario($id){
+        require_once '../Model/UsuarioDAO.php';
+        $usuarios = new UsuarioDAO();
+        return $usuarios->getUsuario($id);
+    }
+    public function cadastrarUsuario($nome,$email,$senha,$tipo){
+        require_once ('../Model/UsuarioDAO.php');
         $usuario  = new UsuarioDAO();
 
-        $usuario->cadastrar($nome, $email, $senha);
+        return $usuario->cadastrar($nome, $email, $senha, $tipo);
+    }
+    public function excluirUsuario($id){
+        require_once ('../Model/UsuarioDAO.php');
+        $usuario  = new UsuarioDAO();
+
+        return $usuario->excluirUsu($id);
+
     }
     public function verificarLogin(){
         require_once ('../Model/UsuarioDAO.php');
         $usuario  = new UsuarioDAO();
-
         $usuario->testLogado();
         
+    }
+    public function is_admin($tipo){
+        require_once ('../Model/UsuarioDAO.php');
+        $usuario  = new UsuarioDAO();
+       return  $usuario->is_admin($tipo);
     }
     public function logOut() {
          require_once ('../Model/UsuarioDAO.php');
@@ -39,10 +59,11 @@ class UsuarioController {
 
          $usuario->sair();
     }
-    public function atualizar($nome, $email, $senha) {
-       require_once ('../Model/USU_Crud.php');
+    public function atualizarUsuario($nome, $email, $senha,$tipo,$id) {
+         require_once ('../Model/UsuarioDAO.php');
+        $usuario  = new UsuarioDAO();
 
-        editarUsu($nome, $email, $senha, $_SESSION['id']);
+        return $usuario->atualizarUsuario($nome, $email, $senha, $tipo,$id);
     }
 }
 

@@ -3,7 +3,7 @@
                 $objControl = new UsuarioController();
 
                 $objControl->verificarlogin();
-
+                
         
     ?>
 
@@ -86,29 +86,18 @@
      
 
 
-      <!-- Nav Item - Charts -->
-      <li class="nav-item">
-          <a class="nav-link" href="CAD_index.php">
+  <?php
+    if($objControl->is_admin($_SESSION['tipo'])){
+        echo '<li class="nav-item">
+          <a class="nav-link" href="USU_index.php">
           <i class="fas fa-fw fa-user"></i>
-          <span>Candidatos</span></a>
-      </li>
+          <span>Usuários</span></a>
+      </li>';
+    }
 
-      <!-- Nav Item - Tables -->
-      <li class="nav-item">
-          <a class="nav-link" href="PRO_index.php">
-          <i class="fas fa-fw fa-book"></i>
-          <span>Propostas</span></a>
-      </li>
-    <li class="nav-item">
-        <a class="nav-link" href="CON_index.php">
-          <i class="fas fa-fw fa-star"></i>
-          <span>Conquistas</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="DEN_index.php">
-          <i class="fas fa-fw fa-archive"></i>
-          <span>Denúncias</span></a>
-      </li>
+?>
+      
+      
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
 
