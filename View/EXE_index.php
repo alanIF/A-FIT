@@ -1,5 +1,10 @@
 <?php
     include './head.php';
+    if(!$objControl->is_admin($_SESSION['tipo'])){
+   echo "<script language='javascript' type='text/javascript'>
+          window.location.href = 'home.php';
+          </script>";                
+        }
 ?>
         <!-- Begin Page Content -->
         <div class="container-fluid">
@@ -16,7 +21,7 @@
               <!-- Project Card Example -->
               <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-info">Propostas dos Candidatos</h6>
+                  <h6 class="m-0 font-weight-bold text-info">Exercícios</h6>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -24,10 +29,14 @@
                   <thead>
                     <tr>
                       <th>#</th>
-                      <th>Candidato</th>
-                      <th>Título</th>
-                      <th>Descrição</th>
-                 
+                      <th>Nome</th>
+                      <th>Demostração</th>
+                      
+                      <th>Grupo</th>
+                      <th>Intervalo</th>
+                      <th>Série </th>
+                      <th>Nº Repetições </th>
+                
 
                       <th>Ações</th>
                     </tr>
@@ -35,8 +44,8 @@
                  
                   <tbody>
                     <?php 
-                        require_once '../Controller/PropostaController.php';
-                        $objControl = new PropostaController();
+                        require_once '../Controller/ExercicioController.php';
+                        $objControl = new ExercicioController();
                         $dados=$objControl->listar();
                         $tamanho = count($dados);
                         if ($tamanho > 0) {
@@ -44,21 +53,26 @@
                                  echo "<tr>";
                                             echo"<td>" . $dados[$i]['id'] . "</td>";
 
-                                            echo"<td>" . $dados[$i]['candidato'] . "</td>";
-                                            echo"<td>" . $dados[$i]['titulo'] . "</td>";
-                                            echo"<td>" . $dados[$i]['descricao'] . "</td>";
+                                            echo"<td>" . $dados[$i]['nome'] . "</td>";
+                                           echo"<td>" . $dados[$i]['demostracao'] . "</td>";
+
                                             
-                                            echo"<td>  <a href='PRO_editar.php?id=" . $dados[$i]['id'] . "'><i class='fas fa-file' title='Editar Proposta'  aria-hidden='true'></i></a>
-                                      <a onclick='return confirmar();' href='PRO_excluir.php?id=" . $dados[$i]['id'] . "'><i class='fa fa-trash' title='Excluir Proposta'  aria-hidden='true'></i></a></td></tr>";
+                                            echo"<td>" . $dados[$i]['grupo'] . "</td>";
+                                            echo"<td>" . $dados[$i]['intervalo'] . "</td>";
+                                            echo"<td>" . $dados[$i]['serie'] . "</td>";
+                                            echo"<td>" . $dados[$i]['repeticao'] . "</td>";
+                                            
+                                            echo"<td>  <a href='EXE_editar.php?id=" . $dados[$i]['id'] . "'><i class='fas fa-file' title='Editar Proposta'  aria-hidden='true'></i></a>
+                                      <a onclick='return confirmar();' href='EXE_excluir.php?id=" . $dados[$i]['id'] . "'><i class='fa fa-trash' title='Excluir Proposta'  aria-hidden='true'></i></a></td></tr>";
                             }
                         
                         }else{
-                            echo "<tr><td colspan='5'> Você não cadastrou  nenhuma proposta ainda, cadastre uma proposta!</td>";
+                            echo "<tr><td colspan='8'> Você não cadastrou  nenhum exercicio ainda, cadastre uma proposta!</td>";
                         }
                     ?>
                         <tfoot>
                                     <tr>
-                                        <th colspan="5"> <a href="PRO_cadastrar.php"><i class="fa fa-plus-square" aria-hidden="true"></i></a></th>
+                                        <th colspan="8"> <a href="EXE_cadastrar.php"><i class="fa fa-plus-square" aria-hidden="true"></i></a></th>
                                       
                                       
                                     </tr>

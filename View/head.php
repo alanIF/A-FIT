@@ -93,6 +93,11 @@
           <i class="fas fa-fw fa-user"></i>
           <span>Usuários</span></a>
       </li>';
+        echo '<li class="nav-item">
+          <a class="nav-link" href="EXE_index.php">
+          <i class="fas fa-fw fa-dumbbell"></i>
+          <span>Exercícios</span></a>
+      </li>';
     }
 
 ?>
