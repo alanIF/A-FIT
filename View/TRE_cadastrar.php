@@ -11,11 +11,27 @@
                 <div class="card-body">
                      <form class="user" action="" method="post" enctype="multipart/form-data">
                        <div class="form-group">
-                <select class="form-control" name="aluno" id="sel1">
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
+                <select class="form-control select2" name="aluno" id="sel1">
+                    <?php 
+                     require_once '../Controller/UsuarioController.php';
+                        $objControl2 = new UsuarioController();
+                        $dados=$objControl2->listar();
+                        $tamanho = count($dados);
+                        if ($tamanho > 0) {
+                            for ($i = 0; $i < $tamanho; $i++) {
+                                 
+
+                                            if($dados[$i]['tipo']==2){
+                                echo "<option value='".$dados[$i]['id']."'>".$dados[$i]['nome']."</option>";
+                                            }
+                                          
+                            }
+                        
+                        }
+                    
+                    
+                    
+                    ?>
                 </select>
               </div>                       
                                    <div class="form-group">
@@ -44,7 +60,8 @@
                                 echo "<script language='javascript' type='text/javascript'>"
                                   . "alert('".$mensagem."');";
                                 echo "</script>";
-                            
+                                                                      echo "<meta HTTP-EQUIV='refresh' CONTENT='1;URL='TRE_index.php?id=".$id."'>";
+
                       
                     }
                     ?>   
@@ -59,3 +76,10 @@
           
 
          
+<script>
+    $(function () {
+        //Initialize Select2 Elements
+        $(".select2").select2();
+
+    });
+</script>

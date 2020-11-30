@@ -17,10 +17,10 @@ class TreinoController {
         $treinos = new TreinoDAO();
         return $treinos->listar();
     }
-    public function getExercicio($id){
-        require_once '../Model/ExercicioDAO.php';
-        $exercicios = new ExercicioDAO();
-        return $exercicios->getExercicio($id);
+    public function getTreino($id){
+        require_once '../Model/TreinoDAO.php';
+        $treinos = new TreinoDAO();
+        return $treinos->getTreino($id);
     }
      public function excluirTreino($id){
         require_once ('../Model/TreinoDAO.php');
@@ -29,16 +29,16 @@ class TreinoController {
         return $treino->excluirTreino($id);
 
     }
-    public function cadastrarExercicio($nome,$image,$grupo,$intervalo, $serie,$repeticao){
-        require_once ('../Model/ExercicioDAO.php');
-        $exercicio  = new ExercicioDAO();
+    public function cadastrarTreino($aluno,$d_inicio,$d_fim,$observacao){
+        require_once ('../Model/TreinoDAO.php');
+        $treino  = new TreinoDAO();
 
-        return $exercicio->cadastrar($nome,$image,$grupo,$intervalo, $serie,$repeticao);
+        return $treino->cadastrar($aluno,$d_inicio,$d_fim,$observacao);
     }
-      public function atualizarExercicio($nome,$image,$grupo,$intervalo, $serie,$repeticao,$id){
-        require_once ('../Model/ExercicioDAO.php');
-        $exercicio  = new ExercicioDAO();
+      public function atualizarTreino($d_inicial,$d_final,$observcao,$id){
+        require_once ('../Model/TreinoDAO.php');
+        $treino = new TreinoDAO();
 
-        return $exercicio->atualizar($nome,$image,$grupo,$intervalo, $serie,$repeticao,$id);
+        return $treino->atualizar($d_inicial,$d_final,$observcao,$id);
     }
 }

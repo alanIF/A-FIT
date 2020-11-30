@@ -35,40 +35,38 @@ class TreinoDAO {
        $conn->close();
        return $treinos;
     }
-     function getExercicio($id){
+     function getTreino($id){
         require_once 'connect.php';
         $conn = F_conect();
-        $result = mysqli_query($conn, "Select * from exercicio where id='".$id."'");
+        $result = mysqli_query($conn, "Select t.id id,t.data_inicial d_inicial, t.data_final d_final, u.nome aluno, t.observacao obs  from treino t, usuario u where t.id_usuario=u.id and t.id='".$id."'");
         $i = 0;
-        $exercicios= array();
+        $treinos= array();
         if (mysqli_num_rows($result)) {
             while ($row = $result->fetch_assoc()) {
-                    $exercicios[$i]['id'] = $row['id'];
-                    $exercicios[$i]['nome'] = $row['nome'];
-                                        $exercicios[$i]['demostracao'] = $row['image'];
+                    $treinos[$i]['id'] = $row['id'];
+                    $treinos[$i]['d_inicial'] = $row['d_inicial'];
+                    $treinos[$i]['d_final'] = $row['d_final'];
+                    $treinos[$i]['observacao'] = $row['obs'];
+                    $treinos[$i]['aluno'] = $row['aluno'];
 
-                    $exercicios[$i]['grupo'] = $row['grupo'];
-                    $exercicios[$i]['intervalo'] = $row['intervalo'];
-                    $exercicios[$i]['serie'] = $row['serie'];
-                    $exercicios[$i]['repeticao'] = $row['repeticao'];
-                
+                  
                  
                     $i++;
                 }
         }
        $conn->close();
-       return $exercicios;
+       return $treinos;
     }
      
     
-    function cadastrar($nome,$image,$grupo,$intervalo, $serie,$repeticao){
+    function cadastrar($aluno,$d_inicio,$d_fim,$observacao){
         require_once 'connect.php';
 
         $conn = F_conect();
-        $sql = "INSERT INTO exercicio(nome, image, grupo, intervalo, serie, repeticao)
-                VALUES('" . $nome . "','" . $image ."' , '".$grupo."', '".$intervalo."' , '".$serie."' , '".$repeticao."' )";
+        $sql = "INSERT INTO treino(id_usuario, data_inicial, data_final, observacao)
+                VALUES('" . $aluno . "','" . $d_inicio ."' , '".$d_fim."', '".$observacao."'  )";
         if ($conn->query($sql) == TRUE) {
-            return "Exercício cadastrado com sucesso";
+            return "Treino cadastrado com sucesso";
             
 
         } else {
@@ -77,12 +75,12 @@ class TreinoDAO {
 
         $conn->close();
     }
-    function atualizar($nome,$image,$grupo,$intervalo, $serie,$repeticao, $id){
+    function atualizar($d_inicial,$d_final,$observcao,$id){
         require_once 'connect.php';
         $conn = F_conect();
-        $sql = "update exercicio set nome='".$nome."' , image='".$image."' , grupo='".$grupo."' ,  intervalo='".$intervalo."' , serie='".$serie."' , repeticao='".$repeticao."'     where id='".$id."'";
+        $sql = "update treino set data_inicial='".$d_inicial."' , data_final='".$d_final."' , observacao='".$observcao."'      where id='".$id."'";
         if ($conn->query($sql) == TRUE) {
-                        return "Exercicio atualizada com sucesso";
+                        return "Treino atualizada com sucesso";
 
                 
                             } else {
