@@ -58,7 +58,7 @@
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="home.php">
         <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fas fa-laugh-wink"></i>
+          <i class="fas fa-dumbbell"></i>
         </div>
         <div class="sidebar-brand-text mx-3">A -<sup>FIT</sup></div>
       </a>
@@ -97,6 +97,11 @@
           <a class="nav-link" href="EXE_index.php">
           <i class="fas fa-fw fa-dumbbell"></i>
           <span>Exercícios</span></a>
+      </li>';
+        echo '<li class="nav-item">
+          <a class="nav-link" href="TRE_index.php">
+          <i class="fas fa-fw fa-running"></i>
+          <span>Treinos</span></a>
       </li>';
     }
 
